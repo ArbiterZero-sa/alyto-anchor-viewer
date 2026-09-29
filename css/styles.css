@@ -1,0 +1,131 @@
+/* Developer 2 — Layout y estilos */
+:root {
+  color-scheme: dark;
+  --paper: #030d07;
+  --card: #07180e;
+  --ink: #e6fff0;
+  --ink-soft: #9fc9ae;
+  --line: #14361f;
+  --accent: #3cff7a;
+  --accent-bg: #0c3a1c;
+  --warn: #f0c36a;
+  --warn-bg: #3b2d0c;
+  --bad: #ff8f85;
+  --bad-bg: #431a17;
+  --r: 10px;
+}
+* { box-sizing: border-box; }
+html { scroll-padding-top: 1rem; }
+body {
+  margin: 0; color: var(--ink);
+  background: radial-gradient(ellipse 90% 60% at 50% -8%, #0e6a2c 0%, #052212 42%, #010603 100%) fixed, var(--paper);
+  font: 400 16px/1.55 "Instrument Sans", system-ui, sans-serif;
+}
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 1.25rem; }
+h1, h2 { font-family: "Bricolage Grotesque", "Instrument Sans", sans-serif; margin: 0; letter-spacing: -0.01em; }
+h1 { font-size: clamp(1.9rem, 4.5vw, 3rem); line-height: 1.05; font-weight: 700; }
+h2 { font-size: 1.3rem; font-weight: 700; }
+
+/* Cabecera */
+.top { padding: 2.5rem 0 1.5rem; border-bottom: 1px solid var(--line); }
+.lead { max-width: 62ch; color: var(--ink-soft); margin: .75rem 0 1.5rem; }
+.controls { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .75rem; align-items: end; }
+.controls label { display: flex; flex-direction: column; gap: .3rem; font-size: .85rem; color: var(--ink-soft); font-weight: 500; }
+input[type=text], select {
+  font: inherit; padding: .6rem .75rem; border: 1px solid var(--line); border-radius: 8px;
+  background: var(--card); color: var(--ink);
+}
+button {
+  font: 600 1rem "Instrument Sans", sans-serif; padding: .65rem 1.3rem; border: 0; border-radius: 8px;
+  background: var(--accent); color: #02140a; cursor: pointer; box-shadow: 0 0 18px rgba(60,255,122,.35);
+}
+button:hover { opacity: .88; }
+button:disabled { opacity: .5; cursor: progress; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.stamp { font-size: .85rem; color: var(--ink-soft); margin: .75rem 0 0; min-height: 1.3em; }
+
+main { padding-top: 1.5rem; padding-bottom: 1rem; display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
+main > * { min-width: 0; }
+body { overflow-wrap: anywhere; }
+table { overflow-wrap: normal; }
+
+/* Banda de verificación de red: ancho completo, sin caja */
+.band { border-left: 5px solid var(--line); padding: .25rem 0 .25rem 1rem; }
+.band.ok { border-color: var(--accent); }
+.band.warn { border-color: var(--warn); }
+.band.bad { border-color: var(--bad); }
+.band h2 { font-size: 1rem; margin-bottom: .35rem; }
+.band .verdict { font-size: 1.15rem; font-weight: 600; margin: 0 0 .35rem; }
+
+/* Paneles */
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 1.25rem 1.4rem 1.4rem; }
+.panel-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-bottom: .75rem; }
+.tag { font-size: .8rem; color: var(--ink-soft); border: 1px solid var(--line); padding: .1rem .55rem; border-radius: 99px; }
+
+.hint { margin: 0 0 1rem; font-size: .92rem; color: var(--ink-soft); }
+.hint summary { cursor: pointer; color: var(--accent); font-weight: 500; }
+.hint p { margin: .5rem 0 0; max-width: 70ch; }
+
+/* Organización */
+.org-grid { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1.25rem; align-items: start; }
+.org-logo { width: 72px; height: 72px; border-radius: 14px; object-fit: contain; background: var(--paper); border: 1px solid var(--line); padding: 6px; }
+.org-name { font: 700 1.5rem "Bricolage Grotesque", sans-serif; margin: 0; }
+.org-desc { color: var(--ink-soft); margin: .25rem 0 1rem; max-width: 70ch; }
+dl.facts { display: grid; grid-template-columns: minmax(7rem, max-content) minmax(0, 1fr); gap: .4rem 1.25rem; margin: 0; }
+dl.facts dt { color: var(--ink-soft); font-size: .9rem; }
+dl.facts dd { margin: 0; word-break: break-word; }
+
+/* Clave pública */
+.key { font: 500 .82rem ui-monospace, SFMono-Regular, Menlo, monospace; word-break: break-all; }
+.key a { color: inherit; }
+
+/* Tablas */
+.scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: .95rem; min-width: 560px; }
+th { text-align: left; font-weight: 600; font-size: .85rem; color: var(--ink-soft); padding: .5rem .6rem; border-bottom: 2px solid var(--line); }
+td { padding: .65rem .6rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+tr:last-child td { border-bottom: 0; }
+
+/* Activos como filas */
+.asset { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr) auto; gap: .5rem 1rem; padding: .85rem 0; border-bottom: 1px solid var(--line); }
+.asset:last-child { border-bottom: 0; }
+.asset .code { font: 700 1.25rem "Bricolage Grotesque", sans-serif; }
+.asset .meta { color: var(--ink-soft); font-size: .92rem; }
+
+/* Chips */
+.chip { display: inline-block; font-size: .8rem; font-weight: 600; padding: .1rem .55rem; border-radius: 99px; background: var(--paper); color: var(--ink-soft); margin: 0 .25rem .25rem 0; white-space: nowrap; }
+.chip.ok { background: var(--accent-bg); color: var(--accent); }
+.chip.warn { background: var(--warn-bg); color: var(--warn); }
+.chip.bad { background: var(--bad-bg); color: var(--bad); }
+
+/* Estados */
+.state { padding: 1rem; border-radius: 8px; background: var(--paper); color: var(--ink-soft); }
+.state.error { background: var(--bad-bg); color: var(--bad); }
+.state.error strong { display: block; margin-bottom: .25rem; }
+.state small { display: block; margin-top: .35rem; color: inherit; opacity: .85; }
+.skeleton { height: 3.5rem; border-radius: 8px; background: linear-gradient(90deg, var(--paper), var(--line), var(--paper)); background-size: 200% 100%; animation: sh 1.2s linear infinite; }
+@keyframes sh { to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }
+
+.raw { margin-top: 1rem; font-size: .85rem; }
+.raw summary { cursor: pointer; color: var(--ink-soft); }
+.raw pre { max-width: 100%; white-space: pre-wrap; background: var(--paper); padding: .85rem; border-radius: 8px; overflow: auto; max-height: 300px; font-size: .8rem; }
+.foot { padding-top: 1rem; padding-bottom: 2.5rem; color: var(--ink-soft); font-size: .85rem; }
+
+@media (max-width: 760px) {
+  .controls { grid-template-columns: 1fr; }
+  .org-grid { grid-template-columns: 1fr; }
+  .asset { grid-template-columns: 1fr; }
+  dl.facts { grid-template-columns: 1fr; gap: 0; }
+  dl.facts dt { margin-top: .5rem; }
+}
+
+/* Tema verde y negro (combina con la pantalla de carga) */
+a { color: var(--accent); }
+h1 { color: #efffe9; text-shadow: 0 0 28px rgba(60,255,122,.45); }
+select option { background: #07180e; color: #e6fff0; }
+input[type=text], select { border-color: #1d5a32; }
+.panel { background: rgba(7,24,14,.88); border-color: #1d5a32; box-shadow: 0 0 0 1px rgba(60,255,122,.05), 0 12px 40px rgba(0,0,0,.5); }
+.top { border-bottom-color: #1d5a32; }
+.tag { border-color: #1d5a32; color: var(--accent); }

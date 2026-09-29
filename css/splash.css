@@ -1,0 +1,58 @@
+/* Pantalla de carga — linterna verde con materia en movimiento */
+.splash {
+  --x: 50%; --y: 45%;
+  position: fixed; inset: 0; z-index: 9999; overflow: hidden; cursor: pointer;
+  display: grid; place-items: center; text-align: center;
+  background: radial-gradient(circle at var(--x) var(--y), #2bf06a 0%, #0c8a35 26%, #04250f 58%, #000 100%);
+  animation: splashOut .8s ease 4.8s forwards; /* respaldo si el JS no carga */
+}
+.splash.leave { animation: none; opacity: 0; visibility: hidden; transition: opacity .6s ease, visibility 0s .6s; }
+@keyframes splashOut { to { opacity: 0; visibility: hidden; } }
+
+.splash-svg { position: absolute; width: 0; height: 0; }
+
+/* Materia viscosa: blobs verdes y negros fusionándose */
+.goo { position: absolute; inset: 0; filter: url(#goo); }
+.blob { position: absolute; border-radius: 50%; will-change: transform; }
+.blob.k { background: #000; }
+.blob.g { background: radial-gradient(circle at 35% 35%, #9dffb6, #21d15a 65%, #08662a); }
+.b1 { width: 42vmax; height: 42vmax; left: -10vmax; top: -8vmax;  animation: m1 9s  ease-in-out infinite alternate; }
+.b2 { width: 34vmax; height: 34vmax; right: -8vmax; top: 6vmax;   animation: m2 11s ease-in-out infinite alternate; }
+.b3 { width: 46vmax; height: 46vmax; left: 20vmax;  bottom: -22vmax; animation: m3 13s ease-in-out infinite alternate; }
+.b4 { width: 22vmax; height: 22vmax; left: 8vmax;   bottom: 6vmax;  animation: m4 8s  ease-in-out infinite alternate; }
+.b5 { width: 26vmax; height: 26vmax; right: 12vmax; bottom: 4vmax;  animation: m5 10s ease-in-out infinite alternate; }
+.b6 { width: 18vmax; height: 18vmax; left: 40vmax;  top: 8vmax;     animation: m2 7s  ease-in-out infinite alternate-reverse; }
+@keyframes m1 { to { transform: translate(38vmax, 24vmax) scale(1.25); } }
+@keyframes m2 { to { transform: translate(-40vmax, 26vmax) scale(.8); } }
+@keyframes m3 { to { transform: translate(-30vmax, -30vmax) scale(1.2); } }
+@keyframes m4 { to { transform: translate(44vmax, -20vmax) scale(1.5); } }
+@keyframes m5 { to { transform: translate(-34vmax, -26vmax) scale(.7); } }
+
+/* Haz de linterna: oscurece los bordes y sigue al puntero */
+.splash::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(circle at var(--x) var(--y), transparent 0, rgba(0,0,0,.35) 32%, rgba(0,0,0,.92) 78%);
+  animation: beam 2.6s ease-in-out infinite alternate;
+}
+@keyframes beam { from { opacity: .82; } to { opacity: 1; } }
+
+.splash-content { position: relative; z-index: 2; padding: 1rem; }
+.splash-g5 {
+  margin: 0; font: 700 clamp(7rem, 32vw, 19rem)/.9 "Bricolage Grotesque", "Instrument Sans", sans-serif;
+  letter-spacing: -.04em; color: #efffe9;
+  text-shadow: 0 0 24px #3cff7a, 0 0 70px #12c04a, 0 0 140px #0b8a35;
+  animation: flicker 3.2s linear infinite;
+}
+@keyframes flicker { 0%, 100% { opacity: 1; } 46% { opacity: 1; } 48% { opacity: .78; } 50% { opacity: 1; } 78% { opacity: .9; } }
+.splash-title {
+  margin: .6rem 0 0; font: 500 clamp(1.1rem, 3.4vw, 1.9rem) "Instrument Sans", system-ui, sans-serif;
+  letter-spacing: .32em; text-transform: uppercase; color: #d8ffe3; text-shadow: 0 0 14px #0b8a35;
+}
+.splash-bar { width: min(260px, 60vw); height: 3px; margin: 1.6rem auto 0; background: rgba(255,255,255,.18); border-radius: 3px; overflow: hidden; }
+.splash-bar span { display: block; height: 100%; width: 100%; background: #c9ffd9; transform-origin: left; animation: fill 4.2s linear forwards; }
+@keyframes fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.splash-hint { margin: .9rem 0 0; font-size: .8rem; color: rgba(216,255,227,.65); }
+
+@media (prefers-reduced-motion: reduce) {
+  .blob, .splash::after, .splash-g5 { animation: none; }
+}

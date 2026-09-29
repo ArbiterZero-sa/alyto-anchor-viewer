@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ficha pública del Anchor Alyto</title>
+  <meta name="description" content="Consulta en tiempo real los datos públicos que un Anchor de Stellar declara vía SEP-1, SEP-24 y SEP-31.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/splash.css">
+</head>
+<body>
+
+<!-- Pantalla de carga -->
+<div id="splash" class="splash" role="status" aria-label="Cargando Ficha Pública del Anchor">
+  <svg class="splash-svg" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="goo">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="22" result="b"/>
+        <feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 26 -11"/>
+      </filter>
+    </defs>
+  </svg>
+  <div class="goo" aria-hidden="true">
+    <span class="blob k b1"></span><span class="blob g b2"></span><span class="blob k b3"></span>
+    <span class="blob g b4"></span><span class="blob k b5"></span><span class="blob g b6"></span>
+  </div>
+  <div class="splash-content">
+    <h1 class="splash-g5">G5</h1>
+    <p class="splash-title">Ficha Pública del Anchor</p>
+    <div class="splash-bar"><span></span></div>
+    <p class="splash-hint">Toca para entrar</p>
+  </div>
+</div>
+
+
+<header class="top">
+  <div class="wrap">
+    <h1>Ficha pública del Anchor</h1>
+    <p class="lead">Lo que una entidad declara públicamente en Stellar, traducido a lenguaje claro. Solo lectura: no se usan claves privadas ni se custodian fondos.</p>
+
+    <form id="controls" class="controls" autocomplete="off">
+      <label>Anchor a consultar
+        <select id="anchor">
+          <option value="alyto" selected>Alyto (alyto.app) · por defecto</option>
+          <option value="cowrie">Cowrie Exchange (cowrie.exchange) · Nigeria</option>
+        </select>
+      </label>
+      <button type="submit" id="loadBtn">Consultar</button>
+    </form>
+    <p id="stamp" class="stamp" aria-live="polite"></p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- Verificación de red -->
+  <section id="network" class="band" aria-labelledby="h-net">
+    <h2 id="h-net">Verificación de red</h2>
+    <div id="network-body" class="body"></div>
+  </section>
+
+  <!-- 1. Organización -->
+  <section id="org" class="panel" aria-labelledby="h-org">
+    <div class="panel-head">
+      <h2 id="h-org">Organización</h2>
+      <span class="tag">SEP-1 · stellar.toml</span>
+    </div>
+    <div id="org-body" class="body"></div>
+  </section>
+
+  <!-- 2. Activos -->
+  <section id="assets" class="panel" aria-labelledby="h-assets">
+    <div class="panel-head">
+      <h2 id="h-assets">Activos emitidos</h2>
+      <span class="tag">SEP-1 + Horizon</span>
+    </div>
+    <details class="hint">
+      <summary>¿Qué es un emisor y una trustline?</summary>
+      <p><strong>Emisor (issuer):</strong> la cuenta de Stellar que crea el activo. Dos activos con el mismo código pero distinto emisor son activos distintos; por eso se verifica siempre.</p>
+      <p><strong>Trustline (línea de confianza):</strong> autorización que tu cuenta debe dar antes de poder recibir un activo emitido por otro. Sin ella, la red rechaza el pago.</p>
+    </details>
+    <div id="assets-body" class="body"></div>
+  </section>
+
+  <!-- 3. SEP-24 -->
+  <section id="sep24" class="panel" aria-labelledby="h-24">
+    <div class="panel-head">
+      <h2 id="h-24">Depósitos y retiros</h2>
+      <span class="tag">SEP-24 · /info</span>
+    </div>
+    <details class="hint">
+      <summary>¿Cómo leer las comisiones y límites?</summary>
+      <p><strong>Comisión fija:</strong> monto que se cobra sin importar cuánto muevas. <strong>Comisión %:</strong> porcentaje del monto. Se suman ambas. <strong>Mínimo / máximo:</strong> rango permitido por operación. <strong>Hosted:</strong> el proceso se completa en la interfaz del propio Anchor.</p>
+    </details>
+    <div id="sep24-body" class="body"></div>
+  </section>
+
+  <!-- 4. SEP-31 -->
+  <section id="sep31" class="panel" aria-labelledby="h-31">
+    <div class="panel-head">
+      <h2 id="h-31">Pagos transfronterizos</h2>
+      <span class="tag">SEP-31 · /cross-border/info</span>
+    </div>
+    <details class="hint">
+      <summary>¿Qué es un corredor de pago?</summary>
+      <p>Es una ruta habilitada para enviar dinero entre países. El Anchor recibe un activo en Stellar y lo entrega en moneda local al destinatario. Las <strong>cotizaciones</strong> (SEP-38) fijan el tipo de cambio antes de enviar.</p>
+    </details>
+    <div id="sep31-body" class="body"></div>
+  </section>
+
+</main>
+
+<footer class="wrap foot">
+  <p>Proyecto académico · Alyto × Stellar. Datos consultados en vivo desde endpoints públicos; pueden cambiar sin aviso. Esto no es asesoría financiera.</p>
+</footer>
+
+<script src="js/splash.js" defer></script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
